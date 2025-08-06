@@ -1,0 +1,10 @@
+# Pasta de build do Maven
+/target/
+
+# Arquivos de configuração do IntelliJ IDEA
+/.idea/
+*.iml
+
+# Arquivos de log e do sistema operacional
+*.log
+.DS_Store

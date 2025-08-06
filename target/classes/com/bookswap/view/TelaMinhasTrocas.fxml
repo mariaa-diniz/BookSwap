@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" styleClass="root" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.bookswap.controller.MinhasTrocasController">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button mnemonicParsing="false" onAction="#handleVoltarAction" text="&lt; Voltar" />
+                <Label styleClass="titulo-label" text="Minhas Trocas" />
+            </children>
+            <padding>
+                <Insets left="20.0" />
+            </padding>
+        </HBox>
+    </top>
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Propostas Recebidas">
+                    <content>
+                        <TableView fx:id="tabelaRecebidas" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="colRecebidasLivroDesejado" prefWidth="150.0" text="Livro que Desejam" />
+                                <TableColumn fx:id="colRecebidasLivroOfertado" prefWidth="150.0" text="Livro que Oferecem" />
+                                <TableColumn fx:id="colRecebidasUsuario" prefWidth="120.0" text="Usuário Solicitante" />
+                                <TableColumn fx:id="colRecebidasData" prefWidth="120.0" text="Data da Proposta" />
+                                <TableColumn fx:id="colRecebidasAcoes" prefWidth="180.0" text="Ações" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </Tab>
+                <Tab text="Propostas Enviadas">
+                    <content>
+                        <TableView fx:id="tabelaEnviadas" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="colEnviadasLivroDesejado" prefWidth="150.0" text="Livro que Desejo" />
+                                <TableColumn fx:id="colEnviadasLivroOfertado" prefWidth="150.0" text="Livro que Ofereci" />
+                                <TableColumn fx:id="colEnviadasUsuario" prefWidth="120.0" text="Dono do Livro" />
+                                <TableColumn fx:id="colEnviadasData" prefWidth="120.0" text="Data da Proposta" />
+                                <TableColumn fx:id="colEnviadasStatus" prefWidth="120.0" text="Status" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </Tab>
+                <Tab text="Histórico">
+                    <content>
+                        <TableView fx:id="tabelaHistorico" layoutX="14.0" layoutY="103.0" prefHeight="200.0" prefWidth="200.0">
+                            <columns>
+                                <TableColumn fx:id="colHistLivroTrocado1" prefWidth="150.0" text="Livro 1" />
+                                <TableColumn fx:id="colHistLivroTrocado2" prefWidth="150.0" text="Livro 2" />
+                                <TableColumn fx:id="colHistOutroUsuario" prefWidth="120.0" text="Outro Usuário" />
+                                <TableColumn fx:id="colHistData" prefWidth="120.0" text="Data" />
+                                <TableColumn fx:id="colHistStatus" prefWidth="100.0" text="Status" />
+                                <TableColumn fx:id="colHistAcoes" prefWidth="120.0" text="Ações" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

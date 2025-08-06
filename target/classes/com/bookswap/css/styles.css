@@ -1,0 +1,127 @@
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-background-color: #e0d3ff;
+}
+
+.label {
+    -fx-text-fill: #3f3d56;
+    -fx-font-size: 14px;
+}
+
+.titulo-label {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8c52ff;
+}
+
+.text-field, .password-field {
+    -fx-font-size: 14px;
+    -fx-pref-height: 40px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #c4b2ff;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-prompt-text-fill: #b0a8b9;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #8c52ff;
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #8c52ff;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-pref-height: 40px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #7b47e5;
+}
+
+.button:pressed {
+    -fx-opacity: 0.9;
+}
+
+.hyperlink {
+    -fx-text-fill: #8c52ff;
+    -fx-font-size: 12px;
+}
+
+.hyperlink:hover {
+    -fx-underline: true;
+}
+
+.mensagem-sucesso {
+    -fx-text-fill: #2a9d8f;
+    -fx-font-weight: bold;
+}
+
+.mensagem-erro {
+    -fx-text-fill: #e76f51;
+    -fx-font-weight: bold;
+}
+
+.card-livro {
+    -fx-background-color: white;
+    -fx-padding: 15px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 5);
+}
+
+.card-livro .label {
+    -fx-text-fill: #3f3d56;
+}
+
+.card-livro .titulo-livro {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.card-livro .autor-livro {
+    -fx-font-size: 12px;
+}
+
+.sidebar {
+    -fx-background-color: #c4b2ff;
+    -fx-padding: 20px 0px 20px 0px;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: #3f3d56;
+    -fx-pref-width: 200px;
+    -fx-alignment: center-left;
+    -fx-padding: 10px 20px 10px 20px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #b3a2e5;
+}
+
+.sidebar-user-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3f3d56;
+    -fx-padding: 0px 0px 20px 20px;
+}
+
+.remover-button {
+    -fx-background-color: #e76f51;
+    -fx-font-size: 12px;
+    -fx-pref-height: 30px;
+}
+
+.remover-button:hover {
+    -fx-background-color: #d66041;
+}
