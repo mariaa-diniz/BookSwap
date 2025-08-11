@@ -58,7 +58,7 @@ CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    senha_hash VARCHAR(255) NOT NULL, -- Importante: Nunca armazene senhas em texto puro.
+    senha_hash VARCHAR(255) NOT NULL,
     cidade VARCHAR(100),
     estado VARCHAR(2),
     data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -66,7 +66,7 @@ CREATE TABLE usuarios (
 
 CREATE TABLE livros (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT NOT NULL, -- Chave estrangeira que liga o livro ao seu dono na tabela 'usuarios'.
+    id_usuario INT NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     autor VARCHAR(255) NOT NULL,
     genero VARCHAR(100),
@@ -79,10 +79,10 @@ CREATE TABLE livros (
 
 CREATE TABLE trocas (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_livro_solicitado INT NOT NULL, -- O livro que o solicitante deseja.
-    id_usuario_solicitante INT NOT NULL, -- O usuário que está fazendo a proposta.
-    id_livro_ofertado INT NOT NULL, -- O livro que o solicitante oferece em troca.
-    id_usuario_ofertado INT NOT NULL, -- O dono do livro solicitado.
+    id_livro_solicitado INT NOT NULL,
+    id_usuario_solicitante INT NOT NULL,
+    id_livro_ofertado INT NOT NULL,
+    id_usuario_ofertado INT NOT NULL,
     status ENUM('PENDENTE', 'ACEITA', 'RECUSADA', 'CONCLUIDA', 'CANCELADA') NOT NULL,
     data_proposta DATETIME DEFAULT CURRENT_TIMESTAMP,
     data_conclusao DATETIME,
@@ -94,12 +94,12 @@ CREATE TABLE trocas (
 
 CREATE TABLE feedbacks (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_troca INT NOT NULL UNIQUE, -- Garante que cada troca só possa ser avaliada uma vez.
+    id_troca INT NOT NULL UNIQUE,
     id_usuario_avaliador INT NOT NULL,
     id_usuario_avaliado INT NOT NULL,
-    nota_troca INT NOT NULL, -- Nota (1-5) para a experiência da troca (comunicação, etc.).
+    nota_troca INT NOT NULL,
     comentario_troca TEXT,
-    nota_livro INT NOT NULL, -- Nota (1-5) para a condição do livro recebido.
+    nota_livro INT NOT NULL,
     comentario_livro TEXT,
     data_feedback DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_troca) REFERENCES trocas(id),
