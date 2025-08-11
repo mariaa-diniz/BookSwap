@@ -42,10 +42,11 @@ BookSwap é um software de desktop desenvolvido como projeto para a faculdade, c
    ```bash
    mvn javafx:run
 📜 Script do Banco de Dados (SQL)
-O script abaixo cria todo o esquema do banco de dados necessário para a aplicação.
 
-<details>
+```sql
+
 CREATE DATABASE IF NOT EXISTS bookswap;
+
 USE bookswap;
 
 DROP TABLE IF EXISTS feedbacks;
@@ -54,48 +55,54 @@ DROP TABLE IF EXISTS livros;
 DROP TABLE IF EXISTS usuarios;
 
 CREATE TABLE usuarios (
-id INT AUTO_INCREMENT PRIMARY KEY,
-nome VARCHAR(255) NOT NULL,
-email VARCHAR(255) NOT NULL UNIQUE,
-senha VARCHAR(255) NOT NULL,
-data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    senha_hash VARCHAR(255) NOT NULL, -- Importante: Nunca armazene senhas em texto puro.
+    cidade VARCHAR(100),
+    estado VARCHAR(2),
+    data_cadastro DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE livros (
-id INT AUTO_INCREMENT PRIMARY KEY,
-id_usuario INT NOT NULL,
-titulo VARCHAR(255) NOT NULL,
-autor VARCHAR(255) NOT NULL,
-genero VARCHAR(100),
-descricao TEXT,
-estado_conservacao ENUM('NOVO', 'SEMINOVO', 'BOM', 'COM_AVARIAS') NOT NULL,
-foto_url VARCHAR(255),
-disponivel BOOLEAN DEFAULT TRUE,
-FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL, -- Chave estrangeira que liga o livro ao seu dono na tabela 'usuarios'.
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(255) NOT NULL,
+    genero VARCHAR(100),
+    descricao TEXT,
+    estado_conservacao ENUM('NOVO', 'SEMINOVO', 'BOM', 'COM_AVARIAS') NOT NULL,
+    foto_url VARCHAR(255),
+    disponivel BOOLEAN DEFAULT TRUE,
+    FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
 
 CREATE TABLE trocas (
-id INT AUTO_INCREMENT PRIMARY KEY,
-id_livro_solicitado INT NOT NULL,
-id_usuario_solicitante INT NOT NULL,
-id_livro_ofertado INT NOT NULL,
-id_usuario_ofertado INT NOT NULL,
-status ENUM('PENDENTE', 'ACEITA', 'RECUSADA', 'CONCLUIDA', 'CANCELADA') NOT NULL,
-data_proposta DATETIME DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (id_livro_solicitado) REFERENCES livros(id),
-FOREIGN KEY (id_usuario_solicitante) REFERENCES usuarios(id),
-FOREIGN KEY (id_livro_ofertado) REFERENCES livros(id),
-FOREIGN KEY (id_usuario_ofertado) REFERENCES usuarios(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_livro_solicitado INT NOT NULL, -- O livro que o solicitante deseja.
+    id_usuario_solicitante INT NOT NULL, -- O usuário que está fazendo a proposta.
+    id_livro_ofertado INT NOT NULL, -- O livro que o solicitante oferece em troca.
+    id_usuario_ofertado INT NOT NULL, -- O dono do livro solicitado.
+    status ENUM('PENDENTE', 'ACEITA', 'RECUSADA', 'CONCLUIDA', 'CANCELADA') NOT NULL,
+    data_proposta DATETIME DEFAULT CURRENT_TIMESTAMP,
+    data_conclusao DATETIME,
+    FOREIGN KEY (id_livro_solicitado) REFERENCES livros(id),
+    FOREIGN KEY (id_usuario_solicitante) REFERENCES usuarios(id),
+    FOREIGN KEY (id_livro_ofertado) REFERENCES livros(id),
+    FOREIGN KEY (id_usuario_ofertado) REFERENCES usuarios(id)
 );
 
 CREATE TABLE feedbacks (
-id INT AUTO_INCREMENT PRIMARY KEY,
-id_troca INT NOT NULL UNIQUE,
-id_usuario_avaliador INT NOT NULL,
-nota INT NOT NULL,
-comentario TEXT,
-data_feedback DATETIME DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (id_troca) REFERENCES trocas(id),
-FOREIGN KEY (id_usuario_avaliador) REFERENCES usuarios(id)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_troca INT NOT NULL UNIQUE, -- Garante que cada troca só possa ser avaliada uma vez.
+    id_usuario_avaliador INT NOT NULL,
+    id_usuario_avaliado INT NOT NULL,
+    nota_troca INT NOT NULL, -- Nota (1-5) para a experiência da troca (comunicação, etc.).
+    comentario_troca TEXT,
+    nota_livro INT NOT NULL, -- Nota (1-5) para a condição do livro recebido.
+    comentario_livro TEXT,
+    data_feedback DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_troca) REFERENCES trocas(id),
+    FOREIGN KEY (id_usuario_avaliador) REFERENCES usuarios(id),
+    FOREIGN KEY (id_usuario_avaliado) REFERENCES usuarios(id)
 );
-</details>
